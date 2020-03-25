@@ -1,11 +1,11 @@
-type Product {
+type Product implements Node{
   id: String!
   name: String!
   description: String
   subProducts: [SubProduct]
 }
 
-type SubProduct {
+type SubProduct implements Node {
   id: String!
   name: String!
   image: String!

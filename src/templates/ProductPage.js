@@ -13,12 +13,12 @@ function ProductPage({
   },
   location,
 }) {
-  const { variantId } = queryString.parse(location.search);
-  const { variants } = product.lighthouseProduct;
+  const { subProductId } = queryString.parse(location.search);
+  const { variants } = product.subProducts;
   const [firstVariant] = variants;
   const [variantQuantity, setVariantQuantity] = useState(1);
   const [activeVariantId, setActiveVariantId] = useState(
-    variantId || firstVariant.id
+    subProductId || firstVariant.id
   );
   const { addItem } = useCart();
 
@@ -179,20 +179,24 @@ function ProductPage({
 }
 
 const pageQuery = graphql`
-  query ProductQuery($id: String!) {
-  productsJson(cms: {products: {elemMatch: {id: {eq: $id}}}}) {
-    id
-    cms {
+query ProductQuery ($id: String!, $locale: String!) {
+  allCms(filter: {lng: {eq: $locale}}, products: {elemMatch: {id: {eq: $id}}}) {
+    nodes {
       products {
         id
         name
-        productImage
         subProducts {
+          id
           formattedPrice
           name
-          splitName
-          imageFile
-          id
+          retailPrice
+          imageFile {
+            childImageSharp {
+              fluid(maxWidth: 450) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
       }
     }

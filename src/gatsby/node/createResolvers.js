@@ -13,15 +13,6 @@ const createResolvers =
             }).format(retailPrice / 100)
           },
         },
-        // imageFile: {
-        //   type: `File`,
-        //   resolve: ({ image }, args, context, info) => {
-        //     const images = context.nodeModel.getAllNodes({
-        //       type: `File`,
-        //     })
-        //     return images.filter(i => image === i.publicURL.spli)
-        //   },
-        // },
         imageFile: {
           type: `File`,
           resolve: (source, args, context, info) => {
@@ -29,9 +20,9 @@ const createResolvers =
               query: {
                 filter: {
                   relativePath: {
-                    eq: source.image
-                  }
-                }
+                    eq: source.image,
+                  },
+                },
               },
               type: "File",
               firstOnly: true,

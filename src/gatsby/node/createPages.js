@@ -2,33 +2,31 @@ const { buildLocalePath } = require("../../utils/gatsby-node-helpers")
 const locales = require("../../locales")
 
 const createPages = async ({ graphql, actions: { createPage } }) => {
-  const result = await graphql(`
-query Query {
-  allCms {
-    edges {
-      node {
-        products {
-          id
-        }
-        lng
-      }
-    }
-  }
-}
-  `)
-
-  // const edges = result.data["allCms"].edges
-  //
-  // edges.forEach(({ node: cms }) => {
-  //   const locale = locales[cms.lng]
-  //   createPage({
-  //     path: buildLocalePath({ locale, path: `/` }),
-  //     component: require.resolve(`../../templates/ProductsPage.js`),
-  //     context: {
-  //       locale: locale.path,
-  //     },
-  //   })
-  // })
+//   const   {
+//     data: {
+//       allCms: {
+//         nodes: [
+//           {
+//             products:
+//               allProducts,
+//           },
+//         ],
+//       },
+//     },
+//   } = await graphql(`
+// query Query {
+//   allCms {
+//     edges {
+//       node {
+//         products {
+//           id
+//         }
+//         lng
+//       }
+//     }
+//   }
+// }
+//   `)
 
   locales.map(locale => {
     createPage({
@@ -59,8 +57,8 @@ query Query {
   //   );
   // }
   //
-  // if (products) {
-  //   products.forEach(({ id }) => {
+  // if (allProducts) {
+  //   allProducts.forEach(({ id }) => {
   //     createPage({
   //       path: buildLocalePath({ locale, path: `/products/${id}` }),
   //       component: require.resolve(`../../templates/ProductPage.js`),
