@@ -1,0 +1,19 @@
+type ProductJson implements Node {
+  id: String!
+  name: String!
+  description: String
+  productImage: File
+  subProducts: [SubProduct]
+}
+
+type SubProduct {
+  id: String!
+  name: String!
+  subProductImage: File!
+  retailPrice: Int!
+}
+
+type Metadata {
+  publishedAt: Date
+  updatedAt: Date
+}

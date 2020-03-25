@@ -1,25 +1,44 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "thinkimi-lighthouse",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Lighthouse provides all your needs.",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Kimi Chen <kimichen13@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.19.45",
+    "@reach/router": "^1.3.3",
+    "@types/react": "^16.9.25",
+    "core-js": "^3.6.4",
+    "fs-extra": "^9.0.0",
+    "gatsby": "^2.18.0-alpha.1",
+    "gatsby-i18n": "^1.1.8",
     "gatsby-image": "^2.2.44",
+    "gatsby-plugin-i18next": "^1.1.10",
     "gatsby-plugin-manifest": "^2.2.48",
     "gatsby-plugin-offline": "^3.0.41",
+    "gatsby-plugin-postcss": "^2.2.0",
+    "gatsby-plugin-purgecss": "^4.0.1",
     "gatsby-plugin-react-helmet": "^3.1.24",
+    "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sharp": "^2.4.13",
-    "gatsby-source-filesystem": "^2.1.56",
+    "gatsby-source-filesystem": "^2.2.1",
+    "gatsby-transformer-json": "^2.3.0",
     "gatsby-transformer-sharp": "^2.3.19",
+    "i18next": "^19.3.3",
+    "i18next-browser-languagedetector": "^4.0.2",
+    "i18next-xhr-backend": "^3.2.2",
+    "postcss-preset-env": "^6.7.0",
     "prop-types": "^15.7.2",
+    "query-string": "^6.11.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1"
-  },
-  "devDependencies": {
-    "prettier": "^1.19.1"
+    "react-helmet": "^5.2.1",
+    "react-i18next": "^11.3.4",
+    "react-redux": "^7.2.0",
+    "react-toastify": "^5.5.0",
+    "react-use-cart": "^1.2.2",
+    "redux": "^4.0.5",
+    "tailwindcss": "^1.2.0",
+    "typescript": "^3.8.3"
   },
   "keywords": [
     "gatsby"
@@ -36,9 +55,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/ThinKimi/thinkimi-lighthouse"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/ThinKimi/thinkimi-lighthouse/issues"
   }
 }
