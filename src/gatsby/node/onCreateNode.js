@@ -1,7 +1,7 @@
 const _ = require(`lodash`)
 
 const onCreateNode = async ({ node, actions, loadNodeContent, createContentDigest, reporter }) => {
-  const { createNode, createParentChildLink} = actions
+  const { createNode, createParentChildLink } = actions
 
   const {
     absolutePath,
@@ -12,19 +12,20 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
     id,
   } = node
 
-  function transformObject(obj, id, type) {
-    const productNode = {
-      ...obj,
+  function transformObj(obj, id, parentNode, type, lng) {
+    const baseNode = {
       id,
       children: [],
-      parent: node.id,
+      parent: parentNode.id,
       internal: {
         contentDigest: createContentDigest(obj),
         type,
       },
+      lng,
     }
-    createNode(productNode)
-    createParentChildLink({ parent: node, child: productNode })
+    const objNode = Object.assign({}, obj, baseNode)
+    createNode(objNode)
+    createParentChildLink({ parent: parentNode, child: objNode })
   }
 
 
@@ -38,23 +39,11 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
   const content = await loadNodeContent(node)
   const products = JSON.parse(content)
 
-  const cmsNode = {
-    products: products,
-    id: `${id} >>> Cms`,
-    name: name,
-    children: [],
-    parent: node.id,
-    internal: {
-      contentDigest: createContentDigest(products),
-      type: `Cms`,
-    },
-    lng: relativeDirectory,
-    fileAbsolutePath: absolutePath,
-  }
+  transformObj({ "products": products }, `${id} >>> Cms`, node, `Cms`, relativeDirectory)
 
-  createNode(cmsNode)
-
-  createParentChildLink({ parent: node, child: cmsNode })
+  // products.forEach(product =>{
+  //
+  // })
 
   activity.end()
 
