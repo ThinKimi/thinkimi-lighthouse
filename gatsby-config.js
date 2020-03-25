@@ -39,17 +39,17 @@ module.exports = {
         name: `locale`,
       },
     },
-    {
-      resolve: `gatsby-plugin-i18next`,
-      options: {
-        availableLngs: ["zh", "en"],
-        fallbackLng: "zh",
-        saveMissing: true,
-        debug: true,
-        defaultNS: "lighthouse",
-        ns: ["lighthouse"],
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-i18next`,
+    //   options: {
+    //     availableLngs: ["zh", "en"],
+    //     fallbackLng: "zh",
+    //     saveMissing: true,
+    //     debug: true,
+    //     defaultNS: "lighthouse",
+    //     ns: ["lighthouse"],
+    //   },
+    // },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-react-helmet`,
   ],

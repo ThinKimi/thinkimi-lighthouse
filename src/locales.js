@@ -1,5 +1,5 @@
-module.exports = {
-  zh: {
+module.exports = [
+  {
     default: true,
     path: `zh`,
     locale: `zh-CN`,
@@ -9,7 +9,7 @@ module.exports = {
     defaultTitle: `灯塔`,
     label: `中文`,
   },
-  en: {
+  {
     path: `en`,
     locale: `en-US`,
     dateFormat: `DD/MM/YYYY`,
@@ -18,5 +18,4 @@ module.exports = {
     defaultTitle: `Lighthouse`,
     label: `English`,
   },
-}
-
+]

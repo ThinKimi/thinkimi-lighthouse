@@ -8,9 +8,12 @@ function ProductsPage(
   {
     data: {
       allCms: {
-        nodes: {
-          products,
-        },
+        nodes: [
+          {
+            products:
+              allProducts,
+          },
+        ],
       },
     },
   }) {
@@ -23,7 +26,7 @@ function ProductsPage(
 
       <hr className="border-b border-gainsboro w-10"/>
 
-      <ProductGrid products={products}/>
+      <ProductGrid products={allProducts}/>
     </React.Fragment>
   )
 }

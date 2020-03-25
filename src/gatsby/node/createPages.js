@@ -17,21 +17,10 @@ query Query {
 }
   `)
 
-  const edges = result.data["allCms"].edges
-
-  edges.forEach(({ node: cms }) => {
-    const locale = locales[cms.lng]
-    createPage({
-      path: buildLocalePath({ locale, path: `/` }),
-      component: require.resolve(`../../templates/ProductsPage.js`),
-      context: {
-        locale: locale.path,
-      },
-    })
-  })
-
-  // Object.keys(locales).map(lang => {
-  //   const locale = locales[lang]
+  // const edges = result.data["allCms"].edges
+  //
+  // edges.forEach(({ node: cms }) => {
+  //   const locale = locales[cms.lng]
   //   createPage({
   //     path: buildLocalePath({ locale, path: `/` }),
   //     component: require.resolve(`../../templates/ProductsPage.js`),
@@ -39,6 +28,16 @@ query Query {
   //       locale: locale.path,
   //     },
   //   })
+  // })
+
+  locales.map(locale => {
+    createPage({
+      path: buildLocalePath({ locale, path: `/` }),
+      component: require.resolve(`../../templates/ProductsPage.js`),
+      context: {
+        locale: locale.path,
+      },
+    })
 
   // if (categories) {
   //   categories.forEach(({ slug }) =>
@@ -69,7 +68,7 @@ query Query {
   //     });
   //   });
   // }
-  // })
+  })
 }
 
 module.exports = createPages

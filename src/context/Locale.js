@@ -40,7 +40,7 @@ function LocaleProvider({ children, locale = defaultLocale.path, location }) {
         return
 
       navigate(
-        `/${locale.toLowerCase()}${location.pathname.substring(3)}${
+        `/${locale}${location.pathname.substring(3)}${
           location.search
         }`,
       )
