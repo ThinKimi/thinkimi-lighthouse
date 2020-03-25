@@ -3,12 +3,11 @@
     "id": "prod_GwoLTTMYW79ggO",
     "name": "Lighthouse",
     "description": "Use lighthouse to see all of the world.",
-    "productImage": "../images/lighthouse.jpg",
     "subProducts": [
       {
         "id": "prod_GwoLTTMYW79gg1",
         "name": "lighthouse-1M",
-        "subProductImage": "../images/lighthouse.jpg",
+        "image": "lighthouse.jpg",
         "retailPrice": "500"
       }
     ]
@@ -17,12 +16,11 @@
     "id": "prod_GwoLTTMYW79gg5",
     "name": "Petite Rocket",
     "description": "Use petite rocket to see all of the world.",
-    "productImage": "../images/petiterocket.jpg",
     "subProducts": [
       {
         "id": "prod_GwoLTTMYW79gg6",
         "name": "petiterocket",
-        "subProductImage": "../images/petiterocket.jpg",
+        "image": "petiterocket.jpg",
         "retailPrice": "300"
       }
     ]

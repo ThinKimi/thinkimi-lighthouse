@@ -9,9 +9,9 @@
 //   )
 // }
 
-// exports.onCreateNode = require("./src/gatsby/node/onCreateNode");
+exports.onCreateNode = require("./src/gatsby/node/onCreateNode");
 // exports.onCreatePage = require("./src/gatsby/node/onCreatePage");
 exports.createSchemaCustomization = require("./src/gatsby/node/createSchema");
 exports.createResolvers = require("./src/gatsby/node/createResolvers");
-// exports.createPages = require("./src/gatsby/node/createPages");
+exports.createPages = require("./src/gatsby/node/createPages");
 

@@ -24,13 +24,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-sharp`,
-    // {
-    //   resolve: "gatsby-plugin-i18n",
-    //   options: {
-    //     langKeyDefault: "zh",
-    //     useLangKeyLayout: false,
-    //   },
-    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -46,24 +39,6 @@ module.exports = {
         name: `locale`,
       },
     },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     path: `${__dirname}/src/products`,
-    //     name: `products`,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-source-graphql`,
-    //   options: {
-    //     typeName: `GraphCMS`,
-    //     fieldName: `cms`,
-    //     url: process.env.GRAPHCMS_ENDPOINT,
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.GRAPHCMS_QUERY_TOKEN}`,
-    //     },
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-i18next`,
       options: {

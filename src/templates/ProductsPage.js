@@ -7,8 +7,10 @@ import SEO from "../components/SEO"
 function ProductsPage(
   {
     data: {
-      cms: {
-        products,
+      allCms: {
+        nodes: {
+          products,
+        },
       },
     },
   }) {
@@ -26,11 +28,11 @@ function ProductsPage(
   )
 }
 
-const pageQuery = graphql`
-query ProductsQuery {
-  allProduct {
-    edges {
-      node {
+export const pageQuery = graphql`
+query ProductsQuery ($locale: String!) {
+  allCms(filter: {lng: {eq: $locale}}) {
+    nodes {
+      products {
         id
         name
         subProducts {
@@ -38,7 +40,7 @@ query ProductsQuery {
           formattedPrice
           name
           retailPrice
-          subProductImage {
+          imageFile {
             childImageSharp {
               fluid(maxWidth: 450) {
                 ...GatsbyImageSharpFluid

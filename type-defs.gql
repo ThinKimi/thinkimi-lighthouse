@@ -1,16 +1,20 @@
-type ProductJson implements Node {
+type Product {
   id: String!
   name: String!
   description: String
-  productImage: File
   subProducts: [SubProduct]
 }
 
 type SubProduct {
   id: String!
   name: String!
-  subProductImage: File!
+  image: String!
   retailPrice: Int!
+}
+
+type Cms implements Node {
+  id: String!
+  products: [Product]
 }
 
 type Metadata {

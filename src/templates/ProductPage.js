@@ -190,9 +190,8 @@ const pageQuery = graphql`
         subProducts {
           formattedPrice
           name
-          retail_price
           splitName
-          subProductImage
+          imageFile
           id
         }
       }

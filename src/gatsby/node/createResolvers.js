@@ -1,21 +1,8 @@
 const createResolvers =
   ({
-     actions: { createNode },
-     cache,
-     createNodeId,
      createResolvers,
-     store,
-     reporter,
    }) => {
     const resolvers = {
-      // Query: {
-      //   allProducts: {
-      //     type: ["ProductJson"],
-      //     resolve(source, args, context, info) {
-      //       return context.nodeModel.getAllNodes({ type: "ProductJson" })
-      //     },
-      //   },
-      // },
       SubProduct: {
         formattedPrice: {
           type: `String`,
@@ -26,21 +13,32 @@ const createResolvers =
             }).format(retailPrice / 100)
           },
         },
+        // imageFile: {
+        //   type: `File`,
+        //   resolve: ({ image }, args, context, info) => {
+        //     const images = context.nodeModel.getAllNodes({
+        //       type: `File`,
+        //     })
+        //     return images.filter(i => image === i.publicURL.spli)
+        //   },
+        // },
+        imageFile: {
+          type: `File`,
+          resolve: (source, args, context, info) => {
+            return context.nodeModel.runQuery({
+              query: {
+                filter: {
+                  relativePath: {
+                    eq: source.image
+                  }
+                }
+              },
+              type: "File",
+              firstOnly: true,
+            })
+          },
+        },
       },
-      // Product: {
-      //   subProducts: {
-      //     type: `[SubProduct]`,
-      //     resolve(source, args, context, info) {
-      //       const ids = source[info.fieldName]
-      //       if (ids == null) return null
-      //
-      //       const subProducts = context.nodeModel.getAllNodes({
-      //         type: `SubProduct`,
-      //       })
-      //       return subProducts.filter(subProduct => ids.includes(subProduct.id))
-      //     },
-      //   },
-      // },
     }
 
     createResolvers(resolvers)
