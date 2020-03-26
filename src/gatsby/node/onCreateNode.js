@@ -12,7 +12,7 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
     id,
   } = node
 
-  function transformObj(obj, id, parentNode, type, lng) {
+  function transformArray(obj, id, parentNode, type, lng) {
     const baseNode = {
       id,
       children: [],
@@ -26,6 +26,24 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
     const objNode = Object.assign({}, obj, baseNode)
     createNode(objNode)
     createParentChildLink({ parent: parentNode, child: objNode })
+    return objNode
+  }
+
+  function transformObj(obj, id, parentNode, type, lng) {
+    const objNode = {
+      ...obj,
+      id,
+      children: [],
+      parent: parentNode.id,
+      internal: {
+        contentDigest: createContentDigest(obj),
+        type,
+      },
+      lng,
+    }
+    createNode(objNode)
+    createParentChildLink({ parent: parentNode, child: objNode })
+    return objNode
   }
 
 
@@ -39,11 +57,19 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
   const content = await loadNodeContent(node)
   const products = JSON.parse(content)
 
-  transformObj({ "products": products }, `${id} >>> Cms`, node, `Cms`, relativeDirectory)
+  transformArray({ "products": products }, `${id} >>> ${relativeDirectory} >>> Cms`,
+    node, `Cms`, relativeDirectory)
 
-  // products.forEach(product =>{
-  //
-  // })
+  products.forEach(product => {
+    transformObj(product, `${product.id} >>> ${relativeDirectory} >>> Product`,
+      node, `Product`, relativeDirectory)
+
+    product.subProducts.forEach(subProject => {
+      transformObj(subProject, `${subProject.id} >>> ${relativeDirectory} >>> SubProduct`,
+        node, `SubProduct`, relativeDirectory)
+    })
+  })
+
 
   activity.end()
 
