@@ -51,7 +51,7 @@ function ProductPage
         </div>
 
         <div className="px-6 md:py-3 lg:w-1/2">
-          <h1 className="font-bold text-3xl md:text-6xl mb-3 text-primary leading-tight">
+          <h1 className="font-bold text-3xl md:text-7xl mb-3 text-primary leading-tight">
             {product.name}
           </h1>
 

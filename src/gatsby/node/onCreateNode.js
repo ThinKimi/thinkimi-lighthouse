@@ -73,7 +73,7 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
     activity.end()
   }
 
-   if (type === "File" && sourceInstanceName === `locale` && name === `category`) {
+  if (type === "File" && sourceInstanceName === `locale` && name === `category`) {
 
     const activity = reporter.activityTimer(
       `@kimichen13: create node: ${relativeDirectory}_category`,
@@ -83,13 +83,16 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
     const content = await loadNodeContent(node)
     const categories = JSON.parse(content)
 
-    transformArray({ "categories": categories }, `${id} >>> ${relativeDirectory} >>> Category`,
-      node, `Category`, relativeDirectory)
+    categories.forEach(category => {
+      transformObj(category, `${id} >>> ${category.slug} ${relativeDirectory} >>> Category`,
+        node, `Category`, relativeDirectory)
+    })
+
 
     activity.end()
   }
 
-   if (type === "File" && sourceInstanceName === `locale` && name === `collection`) {
+  if (type === "File" && sourceInstanceName === `locale` && name === `collection`) {
 
     const activity = reporter.activityTimer(
       `@kimichen13: create node: ${relativeDirectory}_collection`,
@@ -99,12 +102,14 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
     const content = await loadNodeContent(node)
     const collections = JSON.parse(content)
 
-    transformArray({ "collections": collections }, `${id} >>> ${relativeDirectory} >>> Collection`,
-      node, `Collection`, relativeDirectory)
+    collections.forEach(collection => {
+        transformObj(collection, `${id} >>> ${collection.slug} ${relativeDirectory} >>> Collection`,
+          node, `Collection`, relativeDirectory)
+      },
+    )
 
     activity.end()
   }
-
 
 
 }

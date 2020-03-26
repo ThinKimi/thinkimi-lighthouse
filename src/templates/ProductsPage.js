@@ -9,10 +9,7 @@ function ProductsPage(
     data: {
       allCms: {
         nodes: [
-          {
-            products:
-              allProducts,
-          },
+          { products: allProducts },
         ],
       },
     },
@@ -20,7 +17,7 @@ function ProductsPage(
   return (
     <React.Fragment>
       <SEO pageTitle="Products"/>
-      <h1 className="font-bold text-3xl md:text-6xl mb-3 text-primary">
+      <h1 className="font-bold text-3xl md:text-7xl mb-3 text-primary">
         Latest
       </h1>
 

@@ -3,6 +3,10 @@
     "id": "prod_GwoLTTMYW79ggO",
     "name": "灯塔",
     "description": "通过灯塔才能看见整个世界。",
+    "slug": [
+      "util",
+      "new-in"
+    ],
     "subProducts": [
       {
         "id": "prod_GwoLTTMYW79gg1",
@@ -22,6 +26,10 @@
     "id": "prod_GwoLTTMYW79gg5",
     "name": "小火箭",
     "description": "通过小火箭看灯塔",
+    "slug": [
+      "util",
+      "new-in"
+    ],
     "subProducts": [
       {
         "id": "prod_GwoLTTMYW79gg6",

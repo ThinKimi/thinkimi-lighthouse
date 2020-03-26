@@ -8,10 +8,12 @@ function Product({ id, name, subProducts }) {
 
   const [{ formattedPrice, imageFile }] = subProducts
 
+  const realId = id.split(">>>")[0].trim()
+
   return (
-    <article key={id} className="p-6 w-full md:w-1/2 lg:w-1/3">
+    <article key={realId} className="p-6 w-full md:w-1/2 lg:w-1/3">
       <LocaleLink
-        to={`/products/${id}`}
+        to={`/products/${realId}`}
         className="group no-underline w-full h-full flex"
       >
         <div className="bg-gainsboro rounded-lg cursor-pointer w-full overflow-hidden relative px-3 py-6 md:px-6">

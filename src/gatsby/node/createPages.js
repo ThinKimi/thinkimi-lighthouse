@@ -6,11 +6,14 @@ const createPages = async ({ graphql, actions: { createPage } }) => {
     data: {
       allCms: {
         nodes: [
-          {
-            products:
-              allProducts,
-          },
+          { products: allProducts },
         ],
+      },
+      allCollection: {
+        nodes: allCollections,
+      },
+      allCategory: {
+        nodes: allCategories,
       },
     },
   } = await graphql(`
@@ -22,10 +25,22 @@ query Query {
       }
     }
   }
+  allCollection {
+    nodes {
+      slug
+    }
+  }
+  allCategory {
+    nodes {
+      slug
+    }
+  }
 }
   `)
 
   const ids = [...new Set(allProducts.map(p => p.id))]
+  const collectionSlugs = [...new Set(allCollections.map(p => p.slug))]
+  const categorySlugs = [...new Set(allCategories.map(p => p.slug))]
 
   locales.map(locale => {
     createPage({
@@ -47,26 +62,26 @@ query Query {
     }
 
 
-    // if (categories) {
-    //   categories.forEach(({ slug }) =>
-    //     createPage({
-    //       path: buildLocalePath({ locale, path: `/categories/${slug}` }),
-    //       component: require.resolve(`../../templates/CategoryPage.js`),
-    //       context: { slug, locale: locale.path },
-    //     })
-    //   );
-    // }
-    //
-    // if (collections) {
-    //   collections.forEach(({ slug }) =>
-    //     createPage({
-    //       path: buildLocalePath({ locale, path: `/collections/${slug}` }),
-    //       component: require.resolve(`../../templates/CollectionPage.js`),
-    //       context: { slug, locale: locale.path },
-    //     })
-    //   );
-    // }
-    //
+    if (categorySlugs) {
+      categorySlugs.forEach(slug =>
+        createPage({
+          path: buildLocalePath({ locale, path: `/categories/${slug}` }),
+          component: require.resolve(`../../templates/CategoryPage.js`),
+          context: { slug, locale: locale.path },
+        }),
+      )
+    }
+
+    if (collectionSlugs) {
+      collectionSlugs.forEach(slug =>
+        createPage({
+          path: buildLocalePath({ locale, path: `/collections/${slug}` }),
+          component: require.resolve(`../../templates/CollectionPage.js`),
+          context: { slug, locale: locale.path },
+        }),
+      )
+    }
+
   })
 }
 

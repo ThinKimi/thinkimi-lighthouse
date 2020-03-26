@@ -8,24 +8,20 @@ import locales from "../locales"
 
 const query = graphql`
 query NavQuery {
-  allCollection {
-    nodes {
-      lng
-      collections {
-        id
-        name
-        slug
-      }
-    }
-  }
   allCategory {
     nodes {
+      id
+      name
+      slug
       lng
-      categories {
-        name
-        slug
-        id
-      }
+    }
+  }
+  allCollection {
+    nodes {
+      id
+      name
+      slug
+      lng
     }
   }
 }
@@ -44,8 +40,8 @@ function Header() {
 
   const { activeLocale, updateLocale } = useContext(LocaleContext)
 
-  const categories = categoryNodes.find(category => category.lng === activeLocale.toLowerCase()).categories
-  const collections = collectionNodes.find(collection => collection.lng === activeLocale.toLowerCase()).collections
+  const categories = categoryNodes.filter(category => category.lng === activeLocale.toLowerCase())
+  const collections = collectionNodes.filter(collection => collection.lng === activeLocale.toLowerCase())
 
   const { isEmpty } = useCart()
 
