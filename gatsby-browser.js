@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify"
 
 import Layout from "./src/components/Layout"
 import { handleItemAdded, handleItemRemoved, handleItemUpdated } from "./src/utils/cart-helpers"
+import StripeProvider from "./src/components/StripeProvider"
 
 
 const toastOptions = {
@@ -33,20 +34,16 @@ export const wrapPageElement = ({ element, props }) => {
 
 export const wrapRootElement = ({ element }) => {
   return (
-    // <StripeProvider>
-    // <ClientContext.Provider value={client}>
-    <>
-      <CartProvider
-        id={randomCartId()}
-        onItemAdd={handleItemAdded}
-        onItemUpdate={handleItemUpdated}
-        onItemRemove={handleItemRemoved}
-      >
-        {element}
-      </CartProvider>
-      <ToastContainer {...toastOptions} />
-    </>
-    //</ClientContext.Provider>
-    // </StripeProvider>
+    <StripeProvider>
+        <CartProvider
+          id={randomCartId()}
+          onItemAdd={handleItemAdded}
+          onItemUpdate={handleItemUpdated}
+          onItemRemove={handleItemRemoved}
+        >
+          {element}
+        </CartProvider>
+        <ToastContainer {...toastOptions} />
+    </StripeProvider>
   )
 }
