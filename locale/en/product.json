@@ -9,6 +9,12 @@
         "name": "lighthouse-1M",
         "image": "lighthouse.jpg",
         "retailPrice": "500"
+      },
+      {
+        "id": "prod_GwoLTTMYW79gg2",
+        "name": "lighthouse-2M",
+        "image": "lighthouse.jpg",
+        "retailPrice": "800"
       }
     ]
   },

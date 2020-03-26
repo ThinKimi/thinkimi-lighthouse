@@ -9,6 +9,12 @@
         "name": "每月付灯塔",
         "image": "lighthouse.jpg",
         "retailPrice": "500"
+      },
+      {
+        "id": "prod_GwoLTTMYW79gg2",
+        "name": "每季付灯塔",
+        "image": "lighthouse.jpg",
+        "retailPrice": "800"
       }
     ]
   },

@@ -7,37 +7,35 @@ import { navigate } from "@reach/router"
 
 import SEO from "../components/SEO"
 
-function ProductPage({
-  data: {
-    cms: { product },
-  },
-  location,
-}) {
-  const { subProductId } = queryString.parse(location.search);
-  const { variants } = product.subProducts;
-  const [firstVariant] = variants;
-  const [variantQuantity, setVariantQuantity] = useState(1);
-  const [activeVariantId, setActiveVariantId] = useState(
-    subProductId || firstVariant.id
-  );
-  const { addItem } = useCart();
+function ProductPage
+({
+   data: { productById: product },
+   location,
+ }) {
+  const { subProductId } = queryString.parse(location.search)
+  const subProducts = product.subProducts
+  const [firstSubProduct] = subProducts
+  const [variantQuantity, setVariantQuantity] = useState(1)
+  const [activeSubProductId, setActiveSubProductId] = useState(
+    subProductId || firstSubProduct.id,
+  )
+  const { addItem } = useCart()
 
-  const activeVariant = variants.find(
-    variant => variant.id === activeVariantId
-  );
+  const activeSubProduct = subProducts.find(
+    subProduct => subProduct.id === activeSubProductId,
+  )
 
   useEffect(() => {
-    navigate(`?variantId=${activeVariantId}`, { replace: true });
-  }, [activeVariantId]);
+    navigate(`?subProductId=${activeSubProductId}`, { replace: true })
+  }, [activeSubProductId])
 
+  const sp = activeSubProduct ? activeSubProduct : firstSubProduct
   return (
     <React.Fragment>
       <SEO
         pageTitle={product.name}
         image={
-          activeVariant
-            ? activeVariant.variantImage.childImageSharp.fluid.src
-            : product.lighthouseProduct.productImage.childImageSharp.fluid.src
+          sp.imageFile.childImageSharp.fluid.src
         }
       />
 
@@ -45,11 +43,7 @@ function ProductPage({
         <div className="mb-8 px-6 md:mb-0 lg:w-1/2">
           <div className="w-full overflow-hidden relative bg-gainsboro rounded-lg">
             <Img
-              fluid={
-                activeVariant
-                  ? activeVariant.variantImage.childImageSharp.fluid
-                  : product.lighthouseProduct.productImage.childImageSharp.fluid
-              }
+              fluid={sp.imageFile.childImageSharp.fluid}
               alt={product.name}
               title={product.name}
             />
@@ -63,14 +57,14 @@ function ProductPage({
 
           <div className="mb-6">
             <p className="font-semibold text-2xl text-slategray">
-              {activeVariant && activeVariant.formattedPrice}
+              {activeSubProduct && activeSubProduct.formattedPrice}
             </p>
           </div>
 
           {product.description && (
             <div className="mb-6">
               <p className="leading-loose text-lightgray">
-                {product.description.markdown}
+                {product.description}
               </p>
             </div>
           )}
@@ -86,15 +80,15 @@ function ProductPage({
               <div className="relative">
                 <select
                   id="style"
-                  value={activeVariantId}
+                  value={activeSubProductId}
                   onChange={({ target: { value } }) =>
-                    setActiveVariantId(value)
+                    setActiveSubProductId(value)
                   }
                   className="block appearance-none w-full bg-gainsboro border-2 border-gainsboro focus:border-slategray px-4 py-3 pr-8 focus:outline-none focus:bg-white text-slategray focus:text-slategray rounded-lg"
                 >
-                  {variants.map((variant, index) => (
-                    <option key={index} value={variant.id}>
-                      {variant.splitName}
+                  {subProducts.map((subProduct, index) => (
+                    <option key={index} value={subProduct.id}>
+                      {subProduct.name}
                     </option>
                   ))}
                 </select>
@@ -105,7 +99,7 @@ function ProductPage({
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                   </svg>
                 </div>
               </div>
@@ -145,7 +139,7 @@ function ProductPage({
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
                   </svg>
                 </div>
               </div>
@@ -157,16 +151,16 @@ function ProductPage({
               onClick={() =>
                 addItem(
                   {
-                    id: activeVariant.id,
-                    price: activeVariant.retail_price,
-                    image: activeVariant.variantImage,
-                    name: activeVariant.name,
-                    description: product.description.markdown,
+                    id: activeSubProduct.id,
+                    price: activeSubProduct.retailPrice,
+                    image: activeSubProduct.fileImage,
+                    name: activeSubProduct.name,
+                    description: product.description,
                   },
-                  variantQuantity
+                  variantQuantity,
                 )
               }
-              disabled={!activeVariant}
+              disabled={!activeSubProduct}
             >
               Add to cart
             </button>
@@ -175,33 +169,29 @@ function ProductPage({
       </div>
 
     </React.Fragment>
-  );
+  )
 }
 
-const pageQuery = graphql`
+export const pageQuery = graphql`
 query ProductQuery ($id: String!, $locale: String!) {
-  allCms(filter: {lng: {eq: $locale}}, products: {elemMatch: {id: {eq: $id}}}) {
-    nodes {
-      products {
-        id
-        name
-        subProducts {
-          id
-          formattedPrice
-          name
-          retailPrice
-          imageFile {
-            childImageSharp {
-              fluid(maxWidth: 450) {
-                ...GatsbyImageSharpFluid
-              }
-            }
+  productById(id: $id, locale: $locale) {
+    id
+    name
+    subProducts {
+      id
+      formattedPrice
+      name
+      retailPrice
+      imageFile {
+        childImageSharp {
+          fluid(maxWidth: 450) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
     }
   }
 }
-`;
+`
 
-export default ProductPage;
+export default ProductPage
