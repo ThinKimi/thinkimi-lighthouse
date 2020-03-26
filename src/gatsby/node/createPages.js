@@ -36,6 +36,17 @@ query Query {
       },
     })
 
+    if (ids) {
+      ids.forEach(id => {
+        createPage({
+          path: buildLocalePath({ locale, path: `/products/${id}` }),
+          component: require.resolve(`../../templates/ProductPage.js`),
+          context: { id, locale: locale.path },
+        })
+      })
+    }
+
+
     // if (categories) {
     //   categories.forEach(({ slug }) =>
     //     createPage({
@@ -56,15 +67,6 @@ query Query {
     //   );
     // }
     //
-    if (ids) {
-      ids.forEach(id => {
-        createPage({
-          path: buildLocalePath({ locale, path: `/products/${id}` }),
-          component: require.resolve(`../../templates/ProductPage.js`),
-          context: { id, locale: locale.path },
-        })
-      })
-    }
   })
 }
 

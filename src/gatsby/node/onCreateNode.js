@@ -47,31 +47,65 @@ const onCreateNode = async ({ node, actions, loadNodeContent, createContentDiges
   }
 
 
-  if (type !== "File" || sourceInstanceName !== `locale` || name !== `product`) return
+  if (type === "File" && sourceInstanceName === `locale` && name === `product`) {
 
-  const activity = reporter.activityTimer(
-    `@kimichen13: create node: ${relativeDirectory}_cms`,
-  )
-  activity.start()
+    const activity = reporter.activityTimer(
+      `@kimichen13: create node: ${relativeDirectory}_cms`,
+    )
+    activity.start()
 
-  const content = await loadNodeContent(node)
-  const products = JSON.parse(content)
+    const content = await loadNodeContent(node)
+    const products = JSON.parse(content)
 
-  transformArray({ "products": products }, `${id} >>> ${relativeDirectory} >>> Cms`,
-    node, `Cms`, relativeDirectory)
+    transformArray({ "products": products }, `${id} >>> ${relativeDirectory} >>> Cms`,
+      node, `Cms`, relativeDirectory)
 
-  products.forEach(product => {
-    transformObj(product, `${product.id} >>> ${relativeDirectory} >>> Product`,
-      node, `Product`, relativeDirectory)
+    products.forEach(product => {
+      transformObj(product, `${product.id} >>> ${relativeDirectory} >>> Product`,
+        node, `Product`, relativeDirectory)
 
-    product.subProducts.forEach(subProject => {
-      transformObj(subProject, `${subProject.id} >>> ${relativeDirectory} >>> SubProduct`,
-        node, `SubProduct`, relativeDirectory)
+      product.subProducts.forEach(subProject => {
+        transformObj(subProject, `${subProject.id} >>> ${relativeDirectory} >>> SubProduct`,
+          node, `SubProduct`, relativeDirectory)
+      })
     })
-  })
+
+    activity.end()
+  }
+
+   if (type === "File" && sourceInstanceName === `locale` && name === `category`) {
+
+    const activity = reporter.activityTimer(
+      `@kimichen13: create node: ${relativeDirectory}_category`,
+    )
+    activity.start()
+
+    const content = await loadNodeContent(node)
+    const categories = JSON.parse(content)
+
+    transformArray({ "categories": categories }, `${id} >>> ${relativeDirectory} >>> Category`,
+      node, `Category`, relativeDirectory)
+
+    activity.end()
+  }
+
+   if (type === "File" && sourceInstanceName === `locale` && name === `collection`) {
+
+    const activity = reporter.activityTimer(
+      `@kimichen13: create node: ${relativeDirectory}_collection`,
+    )
+    activity.start()
+
+    const content = await loadNodeContent(node)
+    const collections = JSON.parse(content)
+
+    transformArray({ "collections": collections }, `${id} >>> ${relativeDirectory} >>> Collection`,
+      node, `Collection`, relativeDirectory)
+
+    activity.end()
+  }
 
 
-  activity.end()
 
 }
 
