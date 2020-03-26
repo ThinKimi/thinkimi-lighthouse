@@ -1,18 +1,20 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import { useCart } from 'react-use-cart';
+import React from "react"
+import { Link } from "gatsby"
+import { useCart } from "react-use-cart"
+import CartItemList from "./CartItemList"
 
 function Cart() {
-  const { isEmpty, cartTotal } = useCart();
-  const formattedSubTotal = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(cartTotal / 100);
+  const { isEmpty, cartTotal } = useCart()
+  const formattedSubTotal = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(cartTotal / 100)
 
-  if (isEmpty) return <p>Your cart is empty</p>;
+  if (isEmpty) return <p>Your cart is empty</p>
 
   return (
     <React.Fragment>
+      <CartItemList/>
 
       <div className="mt-3 md:mt-6 py-3 md:py-6 border-t-2 border-gainsboro">
         <div className="flex flex-col items-end">
@@ -32,7 +34,7 @@ function Cart() {
         </div>
       </div>
     </React.Fragment>
-  );
+  )
 }
 
-export default Cart;
+export default Cart

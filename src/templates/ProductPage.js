@@ -153,7 +153,7 @@ function ProductPage
                   {
                     id: activeSubProduct.id,
                     price: activeSubProduct.retailPrice,
-                    image: activeSubProduct.fileImage,
+                    image: activeSubProduct.imageFile,
                     name: activeSubProduct.name,
                     description: product.description,
                   },
