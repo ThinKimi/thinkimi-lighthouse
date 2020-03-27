@@ -14,6 +14,18 @@ function Cart() {
 
   return (
     <React.Fragment>
+
+      <div className="mt-3 md:mt-6 py-3 md:py-6 ">
+        <div className="flex flex-col items-end">
+          <Link
+            to="/checkout"
+            className="bg-primary hover:bg-slategray px-4 py-3 rounded-lg text-white text-sm font-bold tracking-widest uppercase focus:outline-none"
+          >
+            Checkout
+          </Link>
+        </div>
+      </div>
+
       <CartItemList/>
 
       <div className="mt-3 md:mt-6 py-3 md:py-6 border-t-2 border-gainsboro">
@@ -33,6 +45,8 @@ function Cart() {
           </Link>
         </div>
       </div>
+
+
     </React.Fragment>
   )
 }
